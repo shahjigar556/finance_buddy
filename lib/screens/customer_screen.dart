@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/side_bar.dart';
+import 'home_screen.dart';
 
 class CustomerScreen extends StatelessWidget {
   final cust;
@@ -83,7 +84,28 @@ class CustomerScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               TextButton(
-                onPressed: () {},
+                onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Enter OTP'),
+                    content:  TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Enter OTP"
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('Confirm OTP'),
+                      ),
+                    ],
+                  ),
+                ),
                 child: Text(
                   'Send OTP',
                 ),
@@ -93,7 +115,9 @@ class CustomerScreen extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 child: Text(
                   'Send EMI Reminder',
                 ),
@@ -108,7 +132,27 @@ class CustomerScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               TextButton(
-                onPressed: () {},
+                onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('SMS SENT'),
+                    content: Text(
+                      'SMS has been sent successfully to your email id containing Transaction Receipt.'
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () => {
+                          Navigator.pushNamed(context, HomeScreen.id)
+                        },
+                        child: const Text('Back To Home Page'),
+                      ),
+                    ],
+                  ),
+                ),
                 child: Text(
                   'Send Confirmation',
                 ),
@@ -118,7 +162,9 @@ class CustomerScreen extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 child: Text(
                   'Add to PTP',
                 ),
