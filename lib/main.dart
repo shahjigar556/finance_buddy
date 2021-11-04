@@ -3,6 +3,7 @@ import 'screens/splash_screen.dart';
 import 'utils/constants.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/profile_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         LoginScreen.id:(context)=>LoginScreen(),
         HomeScreen.id:(context)=>HomeScreen(),
+        ProfileScreen.id:(context)=>ProfileScreen()
       },
     );
   }

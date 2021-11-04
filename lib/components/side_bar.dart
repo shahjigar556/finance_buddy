@@ -1,9 +1,9 @@
+import 'package:finance_buddy/screens/profile_screen.dart';
+import 'package:finance_buddy/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 
 class SideBar extends StatelessWidget {
-
-
   Widget build(BuildContext context) {
     return  Drawer(
       child: ListView(
@@ -22,14 +22,14 @@ class SideBar extends StatelessWidget {
             leading: Icon(Icons.home_outlined),
             title: const Text('Home'),
             onTap: () {
-              //Navigator.pushNamed(context, HomeScreen.id);
+              Navigator.pushNamed(context, HomeScreen.id);
             },
           ),
           ListTile(
             leading: Icon(Icons.account_box_outlined),
             title: const Text('My Profile'),
             onTap: () {
-              //Navigator.pushNamed(context, ProfilePage.id);
+              Navigator.pushNamed(context, ProfileScreen.id);
             },
           ),
           ListTile(

@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               );
                             },
-                            child: Icon(Icons.details)
+                            child: Icon(Icons.article_outlined)
                         ),
                       ),
                     ],
