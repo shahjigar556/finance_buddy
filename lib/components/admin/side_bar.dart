@@ -1,14 +1,18 @@
-import 'package:finance_buddy/screens/profile_screen.dart';
-import 'package:finance_buddy/screens/home_screen.dart';
-import 'package:finance_buddy/screens/ptp_screen.dart';
-import 'package:finance_buddy/screens/target_screen.dart';
-import 'package:finance_buddy/screens/todo.dart';
+import 'package:finance_buddy/screens/admins/add_user.dart';
+import 'package:finance_buddy/screens/admins/ptp_screen_admin.dart';
+import 'package:finance_buddy/screens/reward.dart';
 import 'package:flutter/material.dart';
+import '../../screens/admins/admin_home_screen.dart';
+import '../../screens/profile_screen.dart';
+class SideBar extends StatefulWidget {
+  @override
+  _SideBarState createState() => _SideBarState();
+}
 
-
-class SideBar extends StatelessWidget {
+class _SideBarState extends State<SideBar> {
+  @override
   Widget build(BuildContext context) {
-    return  Drawer(
+       return  Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -25,7 +29,7 @@ class SideBar extends StatelessWidget {
             leading: Icon(Icons.home_outlined),
             title: const Text('Home'),
             onTap: () {
-              Navigator.pushNamed(context, HomeScreen.id);
+              Navigator.pushNamed(context, AdminHomeScreen.id);
             },
           ),
           ListTile(
@@ -36,24 +40,17 @@ class SideBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.list),
-            title: const Text('PTP List'),
+            leading: Icon(Icons.add_circle),
+            title: const Text('Add User'),
             onTap: () {
-              Navigator.pushNamed(context, PTPScreen.id);
+              Navigator.pushNamed(context, AddUser.id);
             },
           ),
           ListTile(
-            leading: Icon(Icons.note_add_sharp),
-            title: const Text('Notes'),
+            leading: Icon(Icons.account_box_outlined),
+            title: const Text('PTP list'),
             onTap: () {
-              Navigator.pushNamed(context, TodoScreen.id);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.list),
-            title: const Text('Analysis'),
-            onTap: () {
-              Navigator.pushNamed(context, TargetScreen.id);
+              Navigator.pushNamed(context, PTPScreenAdmin.id);
             },
           ),
           ListTile(
@@ -61,6 +58,13 @@ class SideBar extends StatelessWidget {
             title: const Text('Settings'),
             onTap: () {
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.card_giftcard),
+            title: const Text('Rewards'),
+            onTap: () {
+              Navigator.pushNamed(context, Reward.id);
             },
           ),
         ],

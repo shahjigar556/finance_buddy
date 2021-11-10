@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
     },
     {
       'id':2,
-      'name':"Jigar",
+      'name':"Tatsat",
       'amount':"500",
       "last-date":"12/10/2021",
       "contact":"8291114975",
@@ -155,7 +155,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   TextButton(
                     onPressed: (){
-
+                      setState(() {
+                        data= data.where((i) => i['name']==name_controller.text).toList();
+                      });
+                      name_controller.clear();
                     },
                     child:Text('Search'),
                     style: TextButton.styleFrom(
