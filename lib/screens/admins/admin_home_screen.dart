@@ -18,8 +18,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     super.initState();
     getData();
   }
+  var loading=true;
   Future<void> getData() async{
-    var url='https://finance-buddy-api.herokuapp.com/admin/allUserDetails';
+    var url='https://finance-buddy-api.herokuapp.com/admin/getAllEMIS';
     String token = await storage.read(key: 'token');
     http.Response response=await http.get(Uri.parse(url),headers: {
       'Authorization':"Bearer $token"
@@ -27,14 +28,19 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     print(response.body);
     if(response.statusCode==200){
       setState(() {
-        data=jsonDecode(response.body);
+        loading=false;
+        var x=jsonDecode(response.body);
+        data=x['data'];
       });
     }else{
+      setState(() {
+        loading=false;
+      });
       print(response.statusCode);
     }
   }
   TextEditingController name_controller=TextEditingController();
-  var data=[];
+  List<dynamic> data=[];
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -57,7 +63,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           ],
         ),
         drawer: SideBar(),
-        body:ListView(
+        body:loading==true?Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [CircularProgressIndicator()],
+            )):ListView(
           children: [
             Container(
                 margin: EdgeInsets.all(20.0),
@@ -131,7 +142,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       DataColumn(
                         label: Text(
-                          'Contacts',
+                          'Loan-Name',
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),
@@ -147,19 +158,19 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       return DataRow(
                         cells: <DataCell>[
                           DataCell(
-                            Text('${post['id']}'),
+                            Text('$index'),
                           ),
                           DataCell(
-                            Text('${post['name']}'),
+                            Text('${post['userName']}'),
                           ),
                           DataCell(
                             Text('${post['amount']}'),
                           ),
                           DataCell(
-                            Text('${post['last-date']}'),
+                            Text('${post['lastDate']}'),
                           ),
                           DataCell(
-                            Text('${post['contact']}'),
+                            Text('${post['loanName']}'),
                           ),
                           DataCell(
                             GestureDetector(
@@ -168,7 +179,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => CustomerScreen(cust:post),
+                                      builder: (context) => CustomerScreen(id:post['user']),
                                     ),
                                   );
                                 },

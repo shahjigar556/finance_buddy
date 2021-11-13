@@ -4,6 +4,8 @@ import 'package:finance_buddy/screens/reward.dart';
 import 'package:flutter/material.dart';
 import '../../screens/admins/admin_home_screen.dart';
 import '../../screens/profile_screen.dart';
+import '../../screens/career_page.dart';
+import '../../screens/contact.dart';
 class SideBar extends StatefulWidget {
   @override
   _SideBarState createState() => _SideBarState();
@@ -65,6 +67,20 @@ class _SideBarState extends State<SideBar> {
             title: const Text('Rewards'),
             onTap: () {
               Navigator.pushNamed(context, Reward.id);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.closed_caption),
+            title: const Text('Career'),
+            onTap: () {
+              Navigator.pushNamed(context, CareerForm.id);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.contact_page),
+            title: const Text('Contact'),
+            onTap: () {
+              Navigator.pushNamed(context, Contact.id);
             },
           ),
         ],

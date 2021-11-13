@@ -33,6 +33,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.3.48
   http: ^0.13.3
   flutter_secure_storage: ^3.2.0
+  sweetalert: ^0.0.1
 
 dev_dependencies:
   flutter_test:
