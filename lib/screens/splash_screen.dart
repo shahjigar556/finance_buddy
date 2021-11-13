@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import 'login_screen.dart';
 
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
