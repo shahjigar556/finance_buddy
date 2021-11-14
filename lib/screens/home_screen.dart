@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sweetalert/sweetalert.dart';
 
+
 class HomeScreen extends StatefulWidget {
   @override
   static String id = "home_screen";
@@ -15,119 +16,30 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  // var data = [
-  //   {
-  //     'id': 1,
-  //     'name': 'Raj',
-  //     'amount': "1000",
-  //     "last-date": "12/10/2021",
-  //     "paid": true,
-  //     "contact": "8291114975"
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "paid": true,
-  //     "contact": "8291114975"
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "paid": true,
-  //     "contact": "8291114975"
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Jigar",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': "Tatsat",
-  //     'amount': "500",
-  //     "last-date": "12/10/2021",
-  //     "contact": "8291114975",
-  //     "paid": true,
-  //   },
-  // ];
   final storage = new FlutterSecureStorage();
-  List<dynamic> data=[];
+  List<dynamic> data = [];
   void initState() {
     super.initState();
     getData();
   }
-  var loading=true;
-  Future<void> getData() async{
-    var url='https://finance-buddy-api.herokuapp.com/users/getAllUnpaidAssignedEMISOFAgent';
+
+  var loading = true;
+  Future<void> getData() async {
+    var url =
+        'https://finance-buddy-api.herokuapp.com/users/getAllUnpaidAssignedEMISOFAgent';
     String token = await storage.read(key: 'token');
-    http.Response response=await http.get(Uri.parse(url),headers: {
-      'Authorization':"Bearer $token"
-    });
+    http.Response response = await http
+        .get(Uri.parse(url), headers: {'Authorization': "Bearer $token"});
     //print(response.body);
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       setState(() {
-        loading=false;
-        var x=jsonDecode(response.body);
-        data=x['data'];
+        loading = false;
+        var x = jsonDecode(response.body);
+        data = x['data'];
       });
-    }else{
+    } else {
       setState(() {
-        loading=false;
+        loading = false;
       });
       print(response.statusCode);
     }
@@ -264,20 +176,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             DataCell(
                               Text('${post['loanName']}'),
                             ),
-                            DataCell(
-                              GestureDetector(
-                                  onTap:(){
-                                    print('Details Button pressed');
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => CustomerScreen(id:post['user']),
-                                      ),
-                                    );
-                                  },
-                                  child: Icon(Icons.article_outlined)
-                              ),
-                            ),
+                            DataCell(TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CustomerScreen(id: post['user']),
+                                    ),
+                                  );
+                                },
+                                child: Text('Details'))),
                           ],
                         );
                       }),

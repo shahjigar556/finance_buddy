@@ -1,17 +1,16 @@
-import 'package:finance_buddy/components/customer/side_bar.dart';
-import 'package:finance_buddy/screens/customer/emi_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:finance_buddy/components/customer/side_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-class CustomerHomeScreen extends StatefulWidget {
-  static String id="customer_home_screen";
+class EMIScreen extends StatefulWidget {
   @override
-  _CustomerHomeScreenState createState() => _CustomerHomeScreenState();
+   final id;
+  EMIScreen({this.id});
+  _EMIScreenState createState() => _EMIScreenState();
 }
 
-class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
+class _EMIScreenState extends State<EMIScreen> {
   @override
   final storage = new FlutterSecureStorage();
   List<dynamic> data = [];
@@ -23,10 +22,11 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   var loading = true;
   Future<void> getData() async {
     var url =
-        'https://finance-buddy-api.herokuapp.com/users/getAllLoansOfUser';
+        'https://finance-buddy-api.herokuapp.com/users/getAllEMIOfLoanOfUser/${widget.id}';
     String token = await storage.read(key: 'token');
     http.Response response = await http
         .get(Uri.parse(url), headers: {'Authorization': "Bearer $token"});
+    print('emi_screen');
     print(response.body);
     if (response.statusCode == 200) {
       setState(() {
@@ -43,26 +43,26 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title:Text(
-          'Finance Buddy',
-          style: TextStyle(
-              color: Colors.blue,
-              fontWeight: FontWeight.bold
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          title:Text(
+            'Finance Buddy',
+            style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold
+            ),
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.settings,color: Colors.black),
+              tooltip: 'Settings',
+              onPressed: () {
+                print('settings icon pressed');
+              },
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings,color: Colors.black),
-            tooltip: 'Settings',
-            onPressed: () {
-              print('settings icon pressed');
-            },
-          ),
-        ],
-      ),
-      drawer: SideBar(),
+        drawer: SideBar(),
         body: loading == true
             ? Center(
             child: Column(
@@ -75,7 +75,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
             Container(
                 margin: EdgeInsets.all(20.0),
                 child: Text(
-                  'Hi User !',
+                  'EMI Details !',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 30),
                 )),
@@ -120,7 +120,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                     columns: <DataColumn>[
                       DataColumn(
                         label: Text(
-                          'ID',
+                          'EMI NO',
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),
@@ -132,13 +132,31 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                       ),
                       DataColumn(
                         label: Text(
-                          'Total installments',
+                          'Agent Name',
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),
                       DataColumn(
                         label: Text(
-                          'Details',
+                          'Amount',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Paid Date',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Last Date',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'PTP',
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),
@@ -148,26 +166,26 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                       return DataRow(
                         cells: <DataCell>[
                           DataCell(
-                            Text('$index'),
+                            Text('${index+1}'),
                           ),
                           DataCell(
                             Text('${post['loanName']}'),
                           ),
                           DataCell(
-                            Text('${post['totalInstallments']}'),
+                            Text(post['agentName']!=null?'${post['agentName']}':'-'),
                           ),
-
-                          DataCell(TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        EMIScreen(id: post['loan']),
-                                  ),
-                                );
-                              },
-                              child: Text('Details'))),
+                          DataCell(
+                            Text('${post['amount']}'),
+                          ),
+                          DataCell(
+                            Text(post['isPaid']==true?'${post['paidAt']}':'-'),
+                          ),
+                          DataCell(
+                            Text(post['isPaid']!=true?'${post['lastDate']}':'-'),
+                          ),
+                          DataCell(
+                            Text(post['inPTP']==true?'Yes':'No'),
+                          ),
                         ],
                       );
                     }),

@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState((){
       loading=true;
     });
-    print('api call started');
+    // print('api call started');
     final response = await http.post(
       Uri.parse(url),
       headers: <String, String>{
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       print(response.statusCode);
     }
-    print('api call ended');
+    // print('api call ended');
 
   }
 

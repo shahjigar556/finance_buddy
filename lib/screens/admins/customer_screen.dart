@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:sweetalert/sweetalert.dart';
-
+import 'package:maps_launcher/maps_launcher.dart';
 class CustomerScreen extends StatefulWidget {
   @override
   _CustomerScreenState createState() => _CustomerScreenState();
@@ -147,8 +147,15 @@ class _CustomerScreenState extends State<CustomerScreen> {
                 ListTile(
                   title: Text('Email ID : ${cust['email']}'),
                 ),
-                ListTile(
-                  title: Text('Address :${cust['address']}'),
+                // ListTile(
+                //   title: Text('Address :${cust['address']}'),
+                // ),
+                TextButton(
+                  onPressed:(){
+                    // MapsLauncher.launchCoordinates(37.4220041, -122.0862462);
+                    MapsLauncher.launchQuery('Apollo Bandar, Colaba, Mumbai, Maharashtra 400001');
+                  },
+                  child: Text('Address'),
                 ),
                 TextButton(
                   onPressed: () {

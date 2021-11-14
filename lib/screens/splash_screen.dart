@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<Timer> loadData() async {
-    return new Timer(Duration(seconds: 6), onDoneLoading);
+    return new Timer(Duration(seconds: 3), onDoneLoading);
   }
 
   onDoneLoading() async {
@@ -38,6 +38,17 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 'BUDDY',
                 style: kTitleText,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                'Finance Made Easy',
+                style:TextStyle(
+                  color:Colors.blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0
+                )
               ),
               SizedBox(
                 height: 20.0,

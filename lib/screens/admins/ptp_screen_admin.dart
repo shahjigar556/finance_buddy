@@ -73,7 +73,7 @@ class _PTPScreenAdminState extends State<PTPScreenAdmin> {
                   Container(
                       margin: EdgeInsets.all(20.0),
                       child: Text(
-                        'Hi Agent !',
+                        'PTP List !',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 30),
                       )),
@@ -170,20 +170,17 @@ class _PTPScreenAdminState extends State<PTPScreenAdmin> {
                             DataCell(
                               Text('${post['loanName']}'),
                             ),
-                            DataCell(
-                              GestureDetector(
-                                  onTap: () {
-                                    print('Details Button pressed');
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            CustomerScreen(id: post['user']),
-                                      ),
-                                    );
-                                  },
-                                  child: Icon(Icons.article_outlined)),
-                            ),
+                            DataCell(TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CustomerScreen(id: post['user']),
+                                    ),
+                                  );
+                                },
+                                child: Text('Details')))
                           ],
                         );
                       }),

@@ -1,11 +1,15 @@
 import 'package:finance_buddy/screens/admins/add_user.dart';
 import 'package:finance_buddy/screens/admins/ptp_screen_admin.dart';
+import 'package:finance_buddy/screens/customer/emi_calculator.dart';
 import 'package:finance_buddy/screens/reward.dart';
+import 'package:finance_buddy/screens/todo.dart';
 import 'package:flutter/material.dart';
 import '../../screens/admins/admin_home_screen.dart';
 import '../../screens/profile_screen.dart';
 import '../../screens/career_page.dart';
 import '../../screens/contact.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../../screens/login_screen.dart';
 class SideBar extends StatefulWidget {
   @override
   _SideBarState createState() => _SideBarState();
@@ -13,18 +17,17 @@ class SideBar extends StatefulWidget {
 
 class _SideBarState extends State<SideBar> {
   @override
+  final storage = new FlutterSecureStorage();
   Widget build(BuildContext context) {
        return  Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
+          DrawerHeader(
             child: CircleAvatar(
               backgroundColor: Colors.black,
-              child: const Text('Jigar Shah'),
+              child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0GQLZD6dfEaxDgOVPcgtAVZQtcojr6Qmn_A&usqp=CAU'),
+              radius: 50,
             ),
           ),
           ListTile(
@@ -42,6 +45,13 @@ class _SideBarState extends State<SideBar> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.note_add_sharp),
+            title: const Text('Notes'),
+            onTap: () {
+              Navigator.pushNamed(context, TodoScreen.id);
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.add_circle),
             title: const Text('Add User'),
             onTap: () {
@@ -56,31 +66,18 @@ class _SideBarState extends State<SideBar> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings_outlined),
-            title: const Text('Settings'),
+            leading: Icon(Icons.calculate),
+            title: const Text('EMI Calculator'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, EMICalculator.id);
             },
           ),
           ListTile(
-            leading: Icon(Icons.card_giftcard),
-            title: const Text('Rewards'),
-            onTap: () {
-              Navigator.pushNamed(context, Reward.id);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.closed_caption),
-            title: const Text('Career'),
-            onTap: () {
-              Navigator.pushNamed(context, CareerForm.id);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.contact_page),
-            title: const Text('Contact'),
-            onTap: () {
-              Navigator.pushNamed(context, Contact.id);
+            leading: Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: ()async{
+              await storage.delete(key: 'token');
+              Navigator.pushNamed(context, LoginScreen.id);
             },
           ),
         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/sales_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../components/side_bar.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class TargetScreen extends StatefulWidget {
   static String id="target_screen";
@@ -11,6 +12,12 @@ class TargetScreen extends StatefulWidget {
 
 class _TargetScreenState extends State<TargetScreen> {
   @override
+  Map<String, double> dataMap = {
+    "Pending": 5,
+    "Successful": 3,
+    "PTP": 2,
+    "Cancelled": 1,
+  };
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -34,26 +41,18 @@ class _TargetScreenState extends State<TargetScreen> {
         ),
         drawer: SideBar(),
         body: Center(
-            child: Column(
+            child: ListView(
               children: [
-                Container(
-                  margin: EdgeInsets.only(top:10),
-                  child: Text(
-                    'No of Locations:10',
-                    style:TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                    )
-                  ),
-                ),
-                Container(
-                  margin:EdgeInsets.only(top: 10),
-                  child:Text(
-                      'Total Collection:50k',
-                      style:TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      )
+                Center(
+                  child: Container(
+                    margin:EdgeInsets.only(top: 10),
+                    child:Text(
+                        'Total Collection:500k',
+                        style:TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        )
+                    ),
                   ),
                 ),
                 Container(
@@ -77,6 +76,16 @@ class _TargetScreenState extends State<TargetScreen> {
                         ]
                     )
                 ),
+                PieChart(
+                    dataMap: dataMap,
+                  chartValuesOptions: ChartValuesOptions(
+                    showChartValueBackground: true,
+                    showChartValues: true,
+                    showChartValuesInPercentage: true,
+                    showChartValuesOutside: false,
+                    decimalPlaces: 1,
+                  ),
+                )
               ],
             )
         )

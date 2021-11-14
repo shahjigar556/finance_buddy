@@ -86,7 +86,7 @@ class _EMICalculatorState extends State<EMICalculator> {
                   child: Slider(
                     value: roi.toDouble(),
                     min: 0.0,
-                    max: 10.0,
+                    max: 15.0,
                     onChanged: (double newValue) {
                       setState(() {
                         roi = double.parse(newValue.toStringAsFixed(1));
