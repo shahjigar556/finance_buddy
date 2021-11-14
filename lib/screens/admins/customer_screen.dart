@@ -159,7 +159,13 @@ class _CustomerScreenState extends State<CustomerScreen> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, PaymentScreen.id);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            PaymentScreen(idx: cust['_id'],name:cust['name']),
+                      ),
+                    );
                   },
                   child: Text('Payment Details'),
                 )

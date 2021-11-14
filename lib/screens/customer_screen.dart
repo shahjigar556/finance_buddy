@@ -23,6 +23,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
   var collection_status="Not Paid";
   var loading = true;
   final storage = new FlutterSecureStorage();
+
   TextEditingController otp_controller = TextEditingController();
   void initState() {
     super.initState();
